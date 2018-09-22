@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片预加载</title>
+    <script src="../js/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <img id="testImg">
+</body>
+<script>
+    var $testImg = $('#testImg');
+    //代理函数
+    var ProxyImage = function (img) {
+        var loadImg = new Image();
+        loadImg.onload = function () {
+            img.src = this.src;
+            loadImg = null;
+        }
+        this.setSrc = function (src) {
+            this.src = src;
+            img.src = './img/loadingImg.gif';
+            loadImg.src = src;
+        }
+    }
+    new ProxyImage($testImg[0]).setSrc('./img/a.png')
+</script>
+</html>
